@@ -3,21 +3,91 @@
 <head>
   <meta charset="UTF-8">
   <title>Math Test Form</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1 { color: #333; }
+    form { max-width: 600px; margin: auto; }
+    .question { margin-bottom: 20px; }
+    textarea { width: 100%; }
+    #result { margin-top: 20px; font-weight: bold; color: green; }
+  </style>
 </head>
 <body>
   <!-- Start of Math Test -->
   <h1>Math Test</h1>
 
-  <!-- Name field -->
-  <form>
-    <label for="studentName">Name:</label>
-    <input type="text" id="studentName" name="studentName" placeholder="Enter your name"><br><br>
+  <form id="mathTest">
+    <!-- Name field -->
+    <div class="question">
+      <label for="studentName">Name:</label><br>
+      <input type="text" id="studentName" name="studentName" placeholder="Enter your name" required>
+    </div>
 
     <!-- Multiple Choice Questions -->
-    <h3>1. What is 5 &times; 3?</h3>
-    <input type="radio" id="q1a" name="q1" value="10">
-    <label for="q1a">10</label><br>
-    <input type="radio" id="q1b" name="q1" value="15">
-    <label for="q1b">15</label><br>
-    <input type="radio" id="q1c" name="q1" value="20">
-    <label
+    <div class="question">
+      <p>1. What is 5 &times; 3?</p>
+      <input type="radio" id="q1a" name="q1" value="10">
+      <label for="q1a">10</label><br>
+      <input type="radio" id="q1b" name="q1" value="15">
+      <label for="q1b">15</label><br>
+      <input type="radio" id="q1c" name="q1" value="20">
+      <label for="q1c">20</label>
+    </div>
+
+    <div class="question">
+      <p>2. What is 12 &divide; 4?</p>
+      <input type="radio" id="q2a" name="q2" value="2">
+      <label for="q2a">2</label><br>
+      <input type="radio" id="q2b" name="q2" value="3">
+      <label for="q2b">3</label><br>
+      <input type="radio" id="q2c" name="q2" value="4">
+      <label for="q2c">4</label>
+    </div>
+
+    <div class="question">
+      <p>3. What is 7 + 6?</p>
+      <input type="radio" id="q3a" name="q3" value="12">
+      <label for="q3a">12</label><br>
+      <input type="radio" id="q3b" name="q3" value="13">
+      <label for="q3b">13</label><br>
+      <input type="radio" id="q3c" name="q3" value="14">
+      <label for="q3c">14</label>
+    </div>
+
+    <!-- Word Problem -->
+    <div class="question">
+      <p>Word Problem: Lisa bought 3 pencils for $0.75 each. How much did she spend total?</p>
+      <textarea id="wordProblem" rows="3" placeholder="Type your answer here..." required></textarea>
+    </div>
+
+    <!-- Submit Button -->
+    <input type="submit" value="Submit Test">
+  </form>
+
+  <div id="result"></div>
+  <!-- End of Math Test -->
+
+  <!-- JavaScript to calculate score -->
+  <script>
+    const form = document.getElementById('mathTest');
+    form.addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent form from refreshing page
+
+      let score = 0;
+
+      // Check multiple choice answers
+      if(document.getElementById('q1b').checked) score++;
+      if(document.getElementById('q2b').checked) score++;
+      if(document.getElementById('q3b').checked) score++;
+
+      // Check word problem
+      const wordAnswer = document.getElementById('wordProblem').value.trim();
+      if(wordAnswer === "2.25" || wordAnswer === "$2.25") score++;
+
+      const name = document.getElementById('studentName').value.trim() || "Student";
+      document.getElementById('result').textContent = 
+        name + ", you scored " + score + " out of 4!";
+    });
+  </script>
+</body>
+</html>
